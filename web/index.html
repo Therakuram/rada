@@ -297,7 +297,8 @@ details.otros summary { cursor: pointer; font-size: .82rem; color: var(--tinta-2
     var el = $("fresco");
     el.className = "fresco" + (f.viejo ? " viejo" : "");
     el.innerHTML = '<i class="punto ' + (f.viejo ? "p-falta" : "p-viene") + '"></i>' +
-      (f.viejo ? "Sin actualizar desde " + f.desde : "Actualizado " + R.hace(D.generado_utc) + " · cada hora");
+      (f.viejo ? "Sin actualizar desde " + f.desde : "Actualizado " + R.hace(D.generado_utc) + " · cada " +
+        ((D.cada_min || 60) >= 60 ? ((D.cada_min || 60) / 60) + " h" : D.cada_min + " min"));
     var av = (D.avisos || []).map(function (a) {
       return '<div class="aviso"><b>' + esc(a.sitio) + ' en pausa</b> hasta las ' + R.hora(a.hasta_utc) + ' (' + esc(a.motivo || "") + '). Se muestran los últimos datos buenos.</div>';
     });

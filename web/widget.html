@@ -8,6 +8,9 @@
 <style>
 /* Widget de escritorio: tarjeta de 380×272. Cabecera arrastrable, dos columnas (una por puerto), pie con el último movimiento. */
 html, body { height: 100%; overflow: hidden; background: var(--superficie); user-select: none; }
+/* Anillo de foco solo al navegar con el teclado (la ventana recibe foco al mostrarse y no debe pintarlo) */
+:focus-visible { outline: none; }
+.teclado :focus-visible { outline: 2px solid var(--magenta); outline-offset: 1px; }
 .w { height: 100%; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto 1fr auto; border: 1px solid var(--linea); border-radius: 8px; overflow: hidden; }
 
 .cab { display: flex; align-items: center; gap: 10px; padding: 8px 8px 8px 14px; background: var(--superficie-2); border-bottom: 1px solid var(--linea); cursor: grab; }
@@ -175,6 +178,9 @@ html, body { height: 100%; overflow: hidden; background: var(--superficie); user
       a.fijar(nuevo).then(function (v) { b.setAttribute("aria-pressed", String(!!v)); });
     }
   });
+
+  document.addEventListener("keydown", function (e) { if (e.key === "Tab") document.documentElement.classList.add("teclado"); });
+  document.addEventListener("mousedown", function () { document.documentElement.classList.remove("teclado"); });
 
   var relojes = false;
   function arrancarRelojes() {
